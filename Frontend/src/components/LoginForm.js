@@ -14,7 +14,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db, } from "../firebase/config";
-import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);

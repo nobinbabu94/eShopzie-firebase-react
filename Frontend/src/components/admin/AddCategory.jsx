@@ -1,18 +1,18 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+
 import { Container, IconButton, Tooltip } from "@mui/material";
-import { Button, Grid, MenuItem, TextField } from "@mui/material";
+import { Button, Grid,  TextField } from "@mui/material";
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
-import { db, storage } from "../../firebase/config";
+
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { db, } from "../../firebase/config";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const style = {
@@ -38,7 +38,7 @@ export default function AddCategory({ id }) {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    
   } = useForm();
 
   const onSubmit = async (data) => {

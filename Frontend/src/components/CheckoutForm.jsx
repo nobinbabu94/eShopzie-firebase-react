@@ -199,7 +199,7 @@ const CheckoutForm = () => {
                 }}
               >
                 {cartItems.map((item, index) => {
-                  const { id, name, price, cartQuantity } = item;
+                  const {  name, price, cartQuantity } = item;
                   return (
                     <>
                       <Grid

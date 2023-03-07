@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 
 //insert your config file path here
 
-const BASE_URL = process.env.REACT_APP_STRIPE_PK;
 
 const Checkout = () => {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
@@ -46,7 +45,7 @@ const Checkout = () => {
   const description = `wShop payment : email: ${customerEmail}, amount: ${totalAmount}`;
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
+    // Create PaymentIntent as soon as the page loads hi
     fetch("http://localhost:4242/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

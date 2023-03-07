@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   Home, Contacts, About, Shop,
   Wishlist, Cart, Login, Register, Reset,
-  MyOrders, OrdersAdmin, Products,
+  OrdersAdmin, Products,
   Users, AddProduct, DashboardAdmin, HeaderAdmin, CategoryAdmin, CheckoutPage, CheckOutDetailsPage, CheckoutSuccessPage, ReviewProduct, OrderHistoryPage
 } from './pages';
 
