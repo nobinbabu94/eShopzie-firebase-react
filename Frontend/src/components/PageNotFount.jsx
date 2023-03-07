@@ -6,8 +6,8 @@ import { colors } from "../Styles/theme";
 const PageNotFount = () => (
   <>
     <Grid
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={'100%'}
+      height={'100%'}
       sx={{
         display: "flex",
         flexDirection: "column",
