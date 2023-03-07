@@ -6,7 +6,7 @@ import {
   Hidden,
   Typography,
 } from "@mui/material";
-import React, { useEffect,} from "react";
+import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -144,8 +144,7 @@ const ViewCart = () => {
                             scope="row"
                             align="center"
                           >
-                   
-                              {/* <IconButton
+                            {/* <IconButton
                                 width="100%"
                                 style={{ top: "0", right: "0",  zIndez:'7 !important',    position: 'fixed',
                               }}
@@ -153,7 +152,7 @@ const ViewCart = () => {
                               >
                                 <CloseIcon />
                               </IconButton> */}
-                   
+
                             {index + 1}
                           </StyledTableCell>
                           <StyledTableCell
@@ -181,21 +180,21 @@ const ViewCart = () => {
                           <StyledTableCell
                             component="th"
                             scope="row"
-
                             align="center"
-                            sx={{ gap: 2, }}
                           >
-                            <Button
-                             
-                              onClick={() => decreaseCart(cart)}
-                            >
-                              -
-                            </Button>
-                            {cartQuantity}
-
-                            <Button onClick={() => increaseCart(cart)}>
-                              +
-                            </Button>
+                            <Grid>
+                              <Grid item >
+                                <Button onClick={() => decreaseCart(cart)}>
+                                  -
+                                </Button>
+                              </Grid>
+                              <Grid item>{cartQuantity}</Grid>
+                              <Grid item>
+                                <Button onClick={() => increaseCart(cart)}>
+                                  +
+                                </Button>
+                              </Grid>
+                            </Grid>
                           </StyledTableCell>
                           <StyledTableCell
                             component="th"

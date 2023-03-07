@@ -161,7 +161,7 @@ const Header = () => {
                       },
                     }}
                   >
-                    Contacts
+                    Contact us
                   </Typography>
                 </NavLink>
               </Grid>

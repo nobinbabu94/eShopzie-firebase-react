@@ -108,7 +108,7 @@ export default function MenuDrawer() {
           style={NavLinkStyle}
           to="/contacts"
         >
-          <MenuItem sx={{ gap: 1, "&: hover": { color: 'orange' } }}><RoomIcon />Contacts
+          <MenuItem sx={{ gap: 1, "&: hover": { color: 'orange' } }}><RoomIcon />Contact us
           </MenuItem>
         </NavLink>
 
