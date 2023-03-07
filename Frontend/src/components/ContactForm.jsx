@@ -63,8 +63,8 @@ const ContactForm = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <Grid sx={parentStyle}>
-        <Container
+      <Grid sx={parentStyle} container>
+        {/* <Container
           maxWidth="lg"
           sx={{
             width: { xl: "80%", lg: "70%", md: "100%", sm: "80%", xs: "100%" },
@@ -73,7 +73,7 @@ const ContactForm = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
-        >
+        > */}
           <Grid
             item
             xs={12}
@@ -310,7 +310,7 @@ const ContactForm = () => {
               </Typography>
             </Grid>
           </Grid>
-        </Container>
+        {/* </Container> */}
       </Grid>
     </>
   );
