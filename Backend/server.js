@@ -7,7 +7,7 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 const app = express();
 app.use(cors())
 app.use(express.json());
-// const path = require("path");
+// const path = require("path"); - updated
 
 
 app.get("/", (req, res) => {
@@ -36,7 +36,7 @@ const calculateOrderAmount = (items) => {
 app.post("/create-payment-intent/", async (req, res) => {
     const { items,billing, description, } = req.body;
 
-    // Create a PaymentIntent with the order amount and currency
+    // Create a PaymentIntent with the order amount and currency -
 
     const paymentIntent = await stripe.paymentIntents.create({
         
