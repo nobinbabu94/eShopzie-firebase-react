@@ -16,7 +16,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:frontend": "nodemon server.js",
+    "start": "nodemon server.js",
     "build": "npm i"
   },
   "eslintConfig": {
