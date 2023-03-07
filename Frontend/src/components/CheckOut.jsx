@@ -45,7 +45,7 @@ const Checkout = () => {
   const description = `wShop payment : email: ${customerEmail}, amount: ${totalAmount}`;
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads hi
+    // Create PaymentIntent as soon as the page loads 
     fetch("https://webapp-jx5o.onrender.com/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
