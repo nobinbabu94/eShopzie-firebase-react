@@ -33,7 +33,7 @@ const calculateOrderAmount = (items) => {
     return totalAmount;
 };
 
-app.post("https://webapp-jx5o.onrender.com/create-payment-intent/", async (req, res) => {
+app.post("/create-payment-intent/", async (req, res) => {
     const { items,billing, description, } = req.body;
 
     // Create a PaymentIntent with the order amount and currency
