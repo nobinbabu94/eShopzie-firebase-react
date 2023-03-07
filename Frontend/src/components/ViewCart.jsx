@@ -181,15 +181,12 @@ const ViewCart = () => {
                           <StyledTableCell
                             component="th"
                             scope="row"
+
                             align="center"
-                            sx={{ gap: 2 }}
+                            sx={{ gap: 2, }}
                           >
                             <Button
-                              xl={3}
-                              md={3}
-                              lg={3}
-                              sm={4}
-                              xs={4}
+                             
                               onClick={() => decreaseCart(cart)}
                             >
                               -
