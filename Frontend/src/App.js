@@ -1,7 +1,7 @@
 import { ThemeProvider, } from '@mui/system'
-import theme from "./Styles/theme";
+import theme, { colors } from "./Styles/theme";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer, } from "react-toastify";
+import { Flip, ToastContainer, Zoom, } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //pages
 import {
@@ -35,7 +35,8 @@ function App() {
         <Provider store={store}>
           <ThemeProvider theme={theme} sx={appStyle}>
 
-            <ToastContainer />
+            <ToastContainer transition={Flip} toastStyle={{ backgroundColor: colors.darkBlue, color: 'white' }} 
+            autoClose={100} theme="light" hideProgressBar={true} />
             <Routes>
               <Route path='*' element={<PageNotFount />} />
               <Route exact path='/' element={<Home />} />

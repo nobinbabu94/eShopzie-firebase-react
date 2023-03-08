@@ -303,85 +303,106 @@ const ShopProducts = () => {
           spacing={3}
           sx={{ display: "flex", justifyContent: "center", p: 2 }}
         >
-          {filterProducts.map((product) => {
-            return (
-              <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
-                <Card
-                  sx={{
-                    maxWidth: 280,
-                    margin: "0 auto",
-                    padding: "0.1em",
-                    bgcolor: colors.grey100,
-                    "&:hover": { boxShadow: 5 },
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="250"
-                    image={product.downloadURL}
-                    alt={"alt"}
-                    title={"titleasdasdsada"}
+          {filterProducts.length === 0 ? (
+            <>
+              <Grid
+                container
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <p>No products found</p>
+               
+              </Grid>
+            </>
+          ) : (
+            filterProducts.map((product) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+                  <Card
                     sx={{
-                      padding: "1em 1em 1em 1em",
-                      objectFit: "contain",
-                      width: "86%",
-                    }}
-                  />
-                  <Divider />
-                  <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                      sx={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {product.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {product.brand}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      &#8377;.{product.price}/-
-                    </Typography>
-                  </CardContent>
-                  <CardActions
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
+                      maxWidth: 280,
+                      margin: "0 auto",
+                      padding: "0.1em",
+                      bgcolor: colors.grey100,
+                      "&:hover": { boxShadow: 5 },
                     }}
                   >
-                    <Avatar
-                      sx={{ cursor: "pointer" }}
-                      size="small"
-                      onClick={() => {
-                        addToCart(product);
+                    <CardMedia
+                      component="img"
+                      height="250"
+                      image={product.downloadURL}
+                      alt={"alt"}
+                      title={"titleasdasdsada"}
+                      sx={{
+                        padding: "1em 1em 1em 1em",
+                        objectFit: "contain",
+                        width: "86%",
+                      }}
+                    />
+                    <Divider />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                        sx={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {product.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {product.brand}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        &#8377;.{product.price}/-
+                      </Typography>
+                    </CardContent>
+                    <CardActions
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "90%",
                       }}
                     >
-                      <AddShoppingCartIcon sx={{ color: colors.blueGrey600 }} />
-                    </Avatar>
-                    <Link to={`${product.id}`}>
-                      <ViewProductModal product={product} id={product.id} />
-                    </Link>
-                    <Avatar
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => {
-                        addToWishlist(product);
-                      }}
-                    >
-                      <FavoriteBorderIcon sx={{ color: colors.blueGrey600 }} />
-                    </Avatar>
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
+                      <Avatar
+                        sx={{ cursor: "pointer" }}
+                        size="small"
+                        onClick={() => {
+                          addToCart(product);
+                        }}
+                      >
+                        <AddShoppingCartIcon
+                          sx={{ color: colors.blueGrey600 }}
+                        />
+                      </Avatar>
+                      <Link to={`${product.id}`}>
+                        <ViewProductModal product={product} id={product.id} />
+                      </Link>
+                      <Avatar
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => {
+                          addToWishlist(product);
+                        }}
+                      >
+                        <FavoriteBorderIcon
+                          sx={{ color: colors.blueGrey600 }}
+                        />
+                      </Avatar>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })
+          )}
         </Grid>
       </motion.div>
     </>
