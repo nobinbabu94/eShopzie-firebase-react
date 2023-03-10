@@ -27,7 +27,7 @@ const Slider = () => {
           }}
         >
           <motion.div
-            style={{ y: -10 }}
+            style={{ y: 20 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -57,7 +57,7 @@ const Slider = () => {
                 <motion.div
                   style={{ y: 20 }}
                   animate={{ y: -10 }}
-                  transition={{ duration: 0.6, delay: 1 }}
+                  transition={{ duration: 0.6, delay: 0 }}
                 >
                   <Grid sx={{ display: "flex" }}>
                     <Typography
