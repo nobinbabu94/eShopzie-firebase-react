@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -21,9 +22,11 @@ import { useDispatch } from "react-redux";
 import { ADD_TO_CART } from "../redux/slice/cartSlice";
 import { ADD_TO_WISHLIST } from "../redux/slice/WishlistSlice";
 import Loader from "./Loader";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const RecentlyAddedProducts = () => {
   const [productdata, setProductdata] = useState([]);
+  const [visible, setVisible] = useState(8);
   const [isLoading, setIsLoading] = useState(false);
   const productArray = [];
 
@@ -62,9 +65,13 @@ const RecentlyAddedProducts = () => {
     dispatch(ADD_TO_WISHLIST(product));
   };
 
+  const showMore = () => {
+    setVisible((prevValue) => prevValue + 4);
+  };
+
   return (
     <>
-    {isLoading && <Loader/>}
+      {isLoading && <Loader />}
       <Grid>
         <Grid
           container
@@ -72,10 +79,11 @@ const RecentlyAddedProducts = () => {
           spacing={3}
           sx={{ display: "flex", justifyContent: "center", p: 2 }}
         >
-          {productdata.map((product) => {
+          {productdata.slice(0, visible).map((product) => {
             return (
               <Grid item xs={12} sm={6} md={2.5} lg={2.5} xl={2.5} py={2.5}>
-                <Card disableRippl
+                <Card
+                  disableRippl
                   sx={{
                     maxWidth: 280,
                     margin: "0 auto",
@@ -174,6 +182,24 @@ const RecentlyAddedProducts = () => {
             );
           })}
         </Grid>
+        {productdata.length > 5 ? (
+          <Grid
+            sx={{
+              display: "flex",
+              aligItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              sx={{ bgcolor: colors.darkBlue, color: "white", '&:hover':{bgcolor:colors.darkBlue} }}
+              onClick={showMore}
+            >
+              Show more <ArrowDropDownIcon />
+            </Button>
+          </Grid>
+        ) : (
+          ""
+        )}
       </Grid>
     </>
   );

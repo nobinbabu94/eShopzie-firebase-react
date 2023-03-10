@@ -27,7 +27,7 @@ const Slider = () => {
           }}
         >
           <motion.div
-            style={{ y: -20 }}
+            style={{ y: -10 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -110,7 +110,7 @@ const Slider = () => {
                 }}
               >
                 <ShowLogOut>
-                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <Link to="/register" style={{ textDecoration: "none" }}>
                     <Button variant="contained" sx={{ textTransform: "none" }}>
                       Signup
                     </Button>
