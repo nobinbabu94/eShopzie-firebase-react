@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const AboutDetails = () => {
   const parentStyle = {
@@ -53,6 +54,7 @@ const AboutDetails = () => {
           varius natoque penatibus et magnis dis parturient montes, nascetur
           ridiculus mus. Nullam sollicitudin nisl feugiat, fringilla ipsum ut,
           ultrices libero.</Typography>
+          <Link to='/admin-login' style={{textDecoration:'none'}}><Typography>ad</Typography></Link>
       </Grid>
     </>
   );
