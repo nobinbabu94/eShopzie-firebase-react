@@ -26,26 +26,28 @@ const style = {
   p: 4,
 };
 
-export default function LogoutUser() {
+export default function LogoutUser(props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    toast.success("Logout successfully");
-    await signOut(auth)
-      .then(() => {
-        handleClose();
-        localStorage.removeItem("usertoken");
-        navigate("/login");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        toast.error("Failed to logout");
-      });
-  };
+  console.log(props)
+
+  // const handleLogout = async () => {
+  //   toast.success("Logout successfully");
+  //   await signOut(auth)
+  //     .then(() => {
+  //       handleClose();
+  //       localStorage.removeItem("usertoken");
+  //       navigate("/login");
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       toast.error("Failed to logout");
+  //     });
+  // };
   return (
     <>
       {isLoading && <Loader />}
@@ -112,7 +114,7 @@ export default function LogoutUser() {
                 bgcolor: colors.darkred,
                 "&:hover": { bgcolor: colors.lightred },
               }}
-              onClick={handleLogout}
+              onClick={props.logout}
             >
               Logout
             </Button>

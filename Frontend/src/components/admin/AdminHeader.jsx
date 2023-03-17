@@ -16,7 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -27,10 +27,12 @@ import {
   selectUserName,
   SET_ACTIVE_USER,
 } from "../../redux/slice/AuthSlice";
-import AdminLogOut from "./AdminLogOut";
+
 import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
+import LogoutUser from "../LogoutUser";
+import { toast } from "react-toastify";
 
 const drawerWidth = 240;
 
@@ -86,6 +88,28 @@ export default function AdminHeader() {
   const [expandmenu, setExpandmenu] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const dispatch = useDispatch();
+
+  
+  // const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const handleLogout = async () => {
+    toast.success("Logout successfully");
+    // setIsLoading(true);
+    await signOut(auth)
+      .then(() => {
+        // setIsLoading(false);
+        localStorage.removeItem("admintokenId@#");
+        handleClose();
+        navigate("/admin-login");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error("Failed to logout");
+      });
+  };
 
   //currently signed user here
   useEffect(() => {
@@ -225,7 +249,7 @@ export default function AdminHeader() {
             <ListItem sx={{ mt: 2, boxShadow: 2 }}>Users</ListItem>
           </Link>
           <ListItem sx={{ mt: 2, boxShadow: 2 }}>
-            <AdminLogOut />
+            <LogoutUser logout={handleLogout} />
           </ListItem>
         </List>
         <Divider />

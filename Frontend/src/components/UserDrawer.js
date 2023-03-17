@@ -11,7 +11,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import AvtarUser from './AvtarUser';
 import KeyIcon from '@mui/icons-material/Key';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { colors } from '../Styles/theme';
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -20,13 +20,30 @@ import LogoutUser from './LogoutUser';
 import ShowLogin, { ShowLogOut } from './HiddenLink';
 import { selectUserName } from '../redux/slice/AuthSlice';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 export default function UserDrawer() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [expandmenu, setExpandmenu] = React.useState(false);
+const navigate = useNavigate()
+const [isLoading, setIsLoading] = React.useState(false);
 
-
+  const handleLogout = async () => {
+    toast.success("Logout successfully");
+    await signOut(auth)
+      .then(() => {
+        handleClose();
+        localStorage.removeItem("usertoken");
+        navigate("/login");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error("Failed to logout");
+      });
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -164,7 +181,7 @@ export default function UserDrawer() {
         <ShowLogin>
           <MenuItem >
 
-            <LogoutUser />
+            <LogoutUser logout={handleLogout} />
           </MenuItem>
         </ShowLogin>
       </Menu>

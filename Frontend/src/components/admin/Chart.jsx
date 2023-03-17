@@ -66,7 +66,7 @@ const Chart = () => {
   };
 
   const [q1, q2, q3, q4] = [
-    "Order placed...",
+    "order placed",
     "processing",
     "Shipped",
     "Delivered",
