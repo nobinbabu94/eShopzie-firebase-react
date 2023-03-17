@@ -31,23 +31,7 @@ export default function LogoutUser(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const navigate = useNavigate();
 
-  console.log(props)
-
-  // const handleLogout = async () => {
-  //   toast.success("Logout successfully");
-  //   await signOut(auth)
-  //     .then(() => {
-  //       handleClose();
-  //       localStorage.removeItem("usertoken");
-  //       navigate("/login");
-  //     })
-  //     .catch((error) => {
-  //       setIsLoading(false);
-  //       toast.error("Failed to logout");
-  //     });
-  // };
   return (
     <>
       {isLoading && <Loader />}
