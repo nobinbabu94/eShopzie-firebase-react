@@ -13,10 +13,9 @@ const rootReducer = combineReducers({
     cart :cartReducer,
     checkout :CheckoutReducer,
     orders : orderReducer, 
-    wishlist : wishlistReducer,
+    wishlist : wishlistReducer, 
     filter : filterReducer
 
-   
 })
 
 const store = configureStore({
