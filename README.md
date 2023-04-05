@@ -1,9 +1,9 @@
 E Commerce Web Application with React - Firebase
 
-Frontend Folder
-  React as froneend
-  Firebase as backend service
+Frontend Folder <br>
+  React as froneend <br>
+  Firebase as backend service <br>
   
-Backend Folder
+Backend Folder <br>
   Node-Express for Srtipe payment
 
