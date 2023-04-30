@@ -16,11 +16,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import AvtarCart from './AvtarCart';
 import AvtarWishlist from './AvtarWishlist';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import LogoutUser from './LogoutUser';
 import { selectUserName } from '../redux/slice/AuthSlice';
 import { useSelector } from 'react-redux';
 import ShowLogin, { ShowLogOut } from './HiddenLink';
+import { toast } from 'react-toastify';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 export default function MenuDrawer() {
 
@@ -28,9 +31,27 @@ export default function MenuDrawer() {
   const [state, setState] = useState({
     right: false,
   });
+  const [isLoading, setIsLoading] = React.useState(false);  
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate()
 
   const userName = useSelector(selectUserName)
-
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = async () => {
+    toast.success("Logout successfully");
+    await signOut(auth)
+      .then(() => {
+        handleClose();
+        localStorage.removeItem("usertoken");
+        navigate("/login");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error("Failed to logout");
+      });
+  };
 
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -47,6 +68,8 @@ export default function MenuDrawer() {
     setState({ ...state, [anchor]: open });
   };
   const NavLinkStyle = ({ isActive }) => {
+
+
     return {
       color: isActive ? colors.orange : 'white',
       textDecoration: isActive ? 'none' : 'none', height: 40, boxShadow: 15
@@ -70,6 +93,15 @@ export default function MenuDrawer() {
             <Typography sx={{ overflow: 'hidden' }}>{userName}</Typography>
             {open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
           </MenuItem>
+        </ShowLogin>
+        <ShowLogin>
+          <NavLink
+            style={NavLinkStyle}
+            to="/order-history"
+          >
+            <MenuItem sx={{ gap: 1, "&: hover": { color: 'orange' } }}>Order History
+            </MenuItem>
+          </NavLink>
         </ShowLogin>
         <ShowLogOut>
           <NavLink
@@ -138,7 +170,7 @@ export default function MenuDrawer() {
           <ShowLogin>
             <MenuItem
               sx={{ m: '-5px', "&: hover": { backgroundColor: colors.darkBlue, color: colors.primary } }}>
-              <LogoutUser />
+              <LogoutUser logout={handleLogout}/>
             </MenuItem>
           </ShowLogin>
         </MenuList>
