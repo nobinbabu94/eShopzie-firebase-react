@@ -35,12 +35,14 @@ function App() {
         <Provider store={store}>
           <ThemeProvider theme={theme} sx={appStyle}>
 
-            <ToastContainer transition={Flip} toastStyle={{ backgroundColor: colors.darkBlue, color: 'white' }} 
-            autoClose={100} theme="light" hideProgressBar={true} />
-   {/* progressbar hided  */}
+            <ToastContainer transition={Flip} toastStyle={{ backgroundColor: colors.darkBlue, color: 'white' }}
+              autoClose={100} theme="light" hideProgressBar={true} />
+            {/* progressbar hided  */}
             <Routes>
               <Route path='*' element={<PageNotFount />} />
-              <Route exact path='/' element={<Home />} />
+              <Route exact path='/' element={<Home />} >
+                <Route path=":id" element={<ViewProductModal />} />
+              </Route>
               <Route path='/contacts' element={<Contacts />} />
               <Route path='/about' element={<About />} />
               <Route path="/shop/" element={<Shop />} >

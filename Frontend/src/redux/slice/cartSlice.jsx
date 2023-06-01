@@ -24,7 +24,7 @@ const cartSlice = createSlice({
         state.cartItems[productIndex].cartQuantity += 1;
         toast.info(`${action.payload.name} increased by one`);
       } else {
-        //intem is not in the cart
+        //item is not in the cart
         //add item to cart
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProduct);

@@ -159,7 +159,7 @@ const RecentlyAddedProducts = () => {
                         sx={{ color: colors.blueGrey600 }}
                       />
                       {/* </Avatar> */}
-                      <Link to={`shop/${product.id}`}>
+                      <Link to={`${product.id}`}>
                         <ViewProductModal product={product} id={product.id} />
                       </Link>
                       {/* <Avatar

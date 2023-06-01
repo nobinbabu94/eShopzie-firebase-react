@@ -7,13 +7,15 @@ import {
   CardMedia,
   Divider,
   Grid,
+  List,
+  ListItem,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { db } from "../firebase/config";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -36,8 +38,12 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_PRICE,
   FILTER_BY_SEARCH,
+  FILTER_SUGGEST,
   selectFilterProduct,
+  selectSuggestion,
   SORT_PRODUCTS,
+  SUGGEST_EMPTY,
+  SUGGEST_SEARCH,
 } from "../redux/slice/filterSlice";
 import { GET_PRICE_RANGE, selectMaxPrice } from "../redux/slice/ProductSlice";
 import { motion } from "framer-motion";
@@ -56,14 +62,16 @@ const ShopProducts = () => {
   const [value, setValue] = useState(0);
   const [catValue, setCatValue] = useState("");
   const [sort, setSort] = useState("Latest");
-
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const filterProducts = useSelector(selectFilterProduct);
+  const suggestionBox = useSelector(selectSuggestion);
   const maxPrices = useSelector(selectMaxPrice);
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
 
-  useEffect(() => {
-    dispatch(FILTER_BY_SEARCH({ search, productdata }));
-  }, [dispatch, search, productdata]);
+  // useEffect(() => {
+  //   dispatch(FILTER_BY_SEARCH({ search, productdata }));
+  // }, [dispatch, search, productdata]);
 
   useEffect(() => {
     dispatch(FILTER_BY_CATEGORY({ catValue, productdata }));
@@ -85,7 +93,6 @@ const ShopProducts = () => {
     setSearch("");
   };
   const clearAllFilter = () => {
-    setSearch("");
     setValue(maxPrices);
     setSort("Latest");
     setCatValue("");
@@ -144,6 +151,47 @@ const ShopProducts = () => {
     dispatch(ADD_TO_WISHLIST(product));
   };
 
+  const searchProducts = () => {
+    dispatch(FILTER_BY_SEARCH({ search, productdata }));
+  };
+  // useEffect(() => {
+  //   suggestion();
+  // }, [search]);
+
+  const suggestion = () => {
+    dispatch(FILTER_SUGGEST({ search, productdata }));
+  };
+
+  const suggestSearch = (itemName) => {
+
+    dispatch(SUGGEST_SEARCH({ itemName, productdata }));
+  };
+
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      suggestion();
+      console.log( "suggest");
+    }, 300);
+   return ()=>clearTimeout(timer)
+  }, [search]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
   return (
     <>
       {isLoading && <Loader />}
@@ -168,21 +216,64 @@ const ShopProducts = () => {
         <Grid
           sx={{
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
+            // justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <TextField
-            size="small"
-            placeholder="search..."
-            value={search ? search : ""}
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-          <Button sx={{ bgcolor: colors.darkred }} onClick={clearSearchFilter}>
+          <Grid>
+            <TextField
+              size="small"
+              placeholder="search..."
+              value={search ? search : ""}
+              ref={inputRef}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              // onBlur={() => setShowSuggestions(false)}
+            />
+            <Button
+              sx={{ bgcolor: colors.blueGrey600 }}
+              onClick={() => searchProducts()}
+            >
+              🔎
+            </Button>
+          </Grid>
+          {showSuggestions && (
+            <Grid
+              sx={{
+                position: "absolute ",
+                width: "19%",
+                mt: 5,
+                bgcolor: "white",
+                borderRadius: 2,
+                zIndex: 1,
+              }}
+            >
+              {suggestionBox.length === 0 ? (
+                ""
+              ) : (
+                <List>
+                  {suggestionBox.map((item) => {
+                    // console.log(item,'suggestion')
+                    return (
+                      <ListItem
+                        key={item.id}
+                        sx={{ "&:hover": { bgcolor: colors.grey300 } }}
+                        onClick={() => suggestSearch(item.name)}
+                      >
+                        {item.name}
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              )}
+            </Grid>
+          )}
+          {/* <Button sx={{ bgcolor: colors.darkred }} onClick={clearSearchFilter}>
             <HighlightOffIcon sx={{ color: "white" }} />
-          </Button>
+          </Button> */}
         </Grid>
         <Grid
           sx={{
@@ -315,7 +406,6 @@ const ShopProducts = () => {
                 }}
               >
                 <p>No products found</p>
-               
               </Grid>
             </>
           ) : (
