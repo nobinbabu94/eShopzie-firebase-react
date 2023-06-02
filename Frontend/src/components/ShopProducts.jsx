@@ -67,11 +67,8 @@ const ShopProducts = () => {
   const suggestionBox = useSelector(selectSuggestion);
   const maxPrices = useSelector(selectMaxPrice);
   const dispatch = useDispatch();
-  const inputRef = useRef(null);
 
-  // useEffect(() => {
-  //   dispatch(FILTER_BY_SEARCH({ search, productdata }));
-  // }, [dispatch, search, productdata]);
+
 
   useEffect(() => {
     dispatch(FILTER_BY_CATEGORY({ catValue, productdata }));
@@ -89,9 +86,7 @@ const ShopProducts = () => {
     dispatch(FILTER_BY_PRICE({ productdata, value }));
   }, [value]);
 
-  const clearSearchFilter = () => {
-    setSearch("");
-  };
+
   const clearAllFilter = () => {
     setValue(maxPrices);
     setSort("Latest");
@@ -154,42 +149,25 @@ const ShopProducts = () => {
   const searchProducts = () => {
     dispatch(FILTER_BY_SEARCH({ search, productdata }));
   };
-  // useEffect(() => {
-  //   suggestion();
-  // }, [search]);
+
 
   const suggestion = () => {
     dispatch(FILTER_SUGGEST({ search, productdata }));
   };
 
   const suggestSearch = (itemName) => {
-
     dispatch(SUGGEST_SEARCH({ itemName, productdata }));
+    setShowSuggestions(false)
   };
-
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
       suggestion();
-      console.log( "suggest");
+      console.log("suggest");
     }, 300);
-   return ()=>clearTimeout(timer)
+    return () => clearTimeout(timer);
   }, [search]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (inputRef.current && !inputRef.current.contains(event.target)) {
-        setShowSuggestions(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
 
   return (
@@ -221,12 +199,12 @@ const ShopProducts = () => {
             alignItems: "center",
           }}
         >
-          <Grid>
+          <Grid sx={{ display: "flex" }}>
             <TextField
               size="small"
               placeholder="search..."
               value={search ? search : ""}
-              ref={inputRef}
+         
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
@@ -242,9 +220,10 @@ const ShopProducts = () => {
           </Grid>
           {showSuggestions && (
             <Grid
+             
               sx={{
                 position: "absolute ",
-                width: "19%",
+                width: { xl: "19%", xs: "80%" },
                 mt: 5,
                 bgcolor: "white",
                 borderRadius: 2,
@@ -260,7 +239,10 @@ const ShopProducts = () => {
                     return (
                       <ListItem
                         key={item.id}
-                        sx={{ "&:hover": { bgcolor: colors.grey300 } }}
+                        sx={{
+                          "&:hover": { bgcolor: colors.grey300 },
+                          cursor: "pointer",
+                        }}
                         onClick={() => suggestSearch(item.name)}
                       >
                         {item.name}

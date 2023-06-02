@@ -232,7 +232,7 @@ export default function ViewProductModal({ product }) {
                       xl={4}
                       sx={{
                         width: "50%",
-                        display: "flex",
+                        display: "flex",flexWrap: 'wrap' ,
                         flexDirection: "column",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",

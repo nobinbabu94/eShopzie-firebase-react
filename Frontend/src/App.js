@@ -8,7 +8,8 @@ import {
   Home, Contacts, About, Shop,
   Wishlist, Cart, Login, Register, Reset,
   OrdersAdmin, Products,
-  Users, AddProduct, DashboardAdmin, HeaderAdmin, CategoryAdmin, CheckoutPage, CheckOutDetailsPage, CheckoutSuccessPage, ReviewProduct, OrderHistoryPage
+  Users, AddProduct, DashboardAdmin, HeaderAdmin, 
+  CategoryAdmin, CheckoutPage, CheckOutDetailsPage, CheckoutSuccessPage, ReviewProduct, OrderHistoryPage
 } from './pages';
 
 //component
@@ -25,7 +26,7 @@ import PageNotFount from './components/PageNotFount';
 
 function App() {
   const appStyle = {
-    display: 'flex',
+    display: 'flex', 
   }
 
 
