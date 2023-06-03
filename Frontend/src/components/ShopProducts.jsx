@@ -67,7 +67,7 @@ const ShopProducts = () => {
   const suggestionBox = useSelector(selectSuggestion);
   const maxPrices = useSelector(selectMaxPrice);
   const dispatch = useDispatch();
-
+  const suggestionRef = useRef();
 
 
   useEffect(() => {
@@ -168,7 +168,19 @@ const ShopProducts = () => {
     return () => clearTimeout(timer);
   }, [search]);
 
+ useEffect(()=>{
+  console.log('red')
+  let handler = (e)=>{
+    if(!suggestionRef.current?.contains(e.target)){
+      setShowSuggestions(false)
+    }
+  }
+  document.addEventListener('mousedown', handler)
 
+  return ()=> document.removeEventListener('mousedown', handler)
+ },[showSuggestions])
+
+ console.log(filterProducts[1]+'mapp')
 
   return (
     <>
@@ -184,7 +196,7 @@ const ShopProducts = () => {
           alignItems: "center",
           bgcolor: colors.lightpink,
         }}
-        component="Paper"
+        // component="paper"
         elevation={4}
       >
         <Grid sx={{ display: "flex" }}>
@@ -220,7 +232,7 @@ const ShopProducts = () => {
           </Grid>
           {showSuggestions && (
             <Grid
-             
+              ref={suggestionRef}
               sx={{
                 position: "absolute ",
                 width: { xl: "19%", xs: "80%" },
@@ -233,7 +245,9 @@ const ShopProducts = () => {
               {suggestionBox.length === 0 ? (
                 ""
               ) : (
-                <List>
+                <List
+               
+                >
                   {suggestionBox.map((item) => {
                     // console.log(item,'suggestion')
                     return (
@@ -392,8 +406,9 @@ const ShopProducts = () => {
             </>
           ) : (
             filterProducts.map((product) => {
+              
               return (
-                <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+                <Grid key={product?.id} item xs={12} sm={6} md={4} lg={4} xl={3}>
                   <Card
                     sx={{
                       maxWidth: 280,
