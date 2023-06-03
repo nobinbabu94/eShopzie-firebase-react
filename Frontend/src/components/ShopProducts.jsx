@@ -283,7 +283,7 @@ const ShopProducts = () => {
             {" "}
             <Typography>Filter by category:</Typography>
           </Typography>
-          <Box sx={{ minWidth: 120 }}>
+          <Box sx={{ minWidth: 120,zIndex: 0, }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Category</InputLabel>
 
