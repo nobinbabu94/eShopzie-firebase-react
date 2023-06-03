@@ -163,13 +163,13 @@ const ShopProducts = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       suggestion();
-      console.log("suggest");
+      
     }, 300);
     return () => clearTimeout(timer);
   }, [search]);
 
  useEffect(()=>{
-  console.log('red')
+
   let handler = (e)=>{
     if(!suggestionRef.current?.contains(e.target)){
       setShowSuggestions(false)
@@ -180,7 +180,7 @@ const ShopProducts = () => {
   return ()=> document.removeEventListener('mousedown', handler)
  },[showSuggestions])
 
- console.log(filterProducts[1]+'mapp')
+
 
   return (
     <>

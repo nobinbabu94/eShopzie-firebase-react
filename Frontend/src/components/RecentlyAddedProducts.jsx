@@ -69,6 +69,7 @@ const RecentlyAddedProducts = () => {
     setVisible((prevValue) => prevValue + 4);
   };
 
+
   return (
     <>
       {isLoading && <Loader />}
@@ -182,7 +183,8 @@ const RecentlyAddedProducts = () => {
             );
           })}
         </Grid>
-        {productdata.length > 5 ? (
+   
+        {productdata.length >visible ? (
           <Grid
             sx={{
               display: "flex",
